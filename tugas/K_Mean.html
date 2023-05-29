@@ -63,6 +63,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'tugas/K_Mean';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="KNN Classifier atau Klasifikasi pada Data Iris" href="KNN_DataIris.html" />
+    <link rel="prev" title="Decision Tree pada Data Iris" href="tugas4.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -153,12 +155,13 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="tugass1.html">Mengambil data dari sumber yang berbeda dan menggabungkanya(Tugas 1)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tugas2.html">Tugas Untuk menghitung jarak data(Tugas 2)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tugas3.html">Klasifikasi Naive Bayes Pada Dataset Iris (Tugas 3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UTS_Pendata.html">UTS NAIVE BAYES DAN KNN DATASET HEART DISEASE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tugas4.html">Decision Tree pada Data Iris</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">K-Means Clustering atau Pengelompokan pada Data Iris</a></li>
 <li class="toctree-l1"><a class="reference internal" href="KNN_DataIris.html">KNN Classifier atau Klasifikasi pada Data Iris</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Naive_Bayes_DataIris.html">Naive Bayes Klasifikasi Gaussian pada Data Iris</a></li>
 <li class="toctree-l1"><a class="reference internal" href="BNN.html">Jaringan Saraf Tiruan (Backpropagation Neural Network)</a></li>
@@ -410,7 +413,7 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-ff00e0a4-3251-41d5-b92b-e2a7ef3fe667">
+  <div id="df-17bb0340-a856-40f8-aada-ffb2cbdc0535">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -518,7 +521,7 @@ document.write(`
 </table>
 <p>150 rows × 4 columns</p>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-ff00e0a4-3251-41d5-b92b-e2a7ef3fe667')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-17bb0340-a856-40f8-aada-ffb2cbdc0535')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -569,12 +572,12 @@ document.write(`
 
       <script>
         const buttonEl =
-          document.querySelector('#df-ff00e0a4-3251-41d5-b92b-e2a7ef3fe667 button.colab-df-convert');
+          document.querySelector('#df-17bb0340-a856-40f8-aada-ffb2cbdc0535 button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-ff00e0a4-3251-41d5-b92b-e2a7ef3fe667');
+          const element = document.querySelector('#df-17bb0340-a856-40f8-aada-ffb2cbdc0535');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -632,7 +635,7 @@ memory usage: 4.8 KB
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-f20e4f2b-02c3-44cf-aad9-8d078b41dc0e">
+  <div id="df-98e1d0af-3d25-4c88-8169-a92ed89fb36c">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -718,7 +721,7 @@ memory usage: 4.8 KB
   </tbody>
 </table>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-f20e4f2b-02c3-44cf-aad9-8d078b41dc0e')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-98e1d0af-3d25-4c88-8169-a92ed89fb36c')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -769,12 +772,12 @@ memory usage: 4.8 KB
 
       <script>
         const buttonEl =
-          document.querySelector('#df-f20e4f2b-02c3-44cf-aad9-8d078b41dc0e button.colab-df-convert');
+          document.querySelector('#df-98e1d0af-3d25-4c88-8169-a92ed89fb36c button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-f20e4f2b-02c3-44cf-aad9-8d078b41dc0e');
+          const element = document.querySelector('#df-98e1d0af-3d25-4c88-8169-a92ed89fb36c');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -805,7 +808,7 @@ memory usage: 4.8 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x7f1986d76b60&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x7f9b42cef340&gt;
 </pre></div>
 </div>
 <img alt="../_images/8c2353379cc48e7ae859bb441a87586495049905802c30e180d55250c1925d96.png" src="../_images/8c2353379cc48e7ae859bb441a87586495049905802c30e180d55250c1925d96.png" />
@@ -1040,7 +1043,7 @@ memory usage: 4.8 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f1983efd5a0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f9b232212d0&gt;
 </pre></div>
 </div>
 <img alt="../_images/c8227fb4795f6cd6c7d917dfcd9588acbfb9a5410a03605b748676123e8d6214.png" src="../_images/c8227fb4795f6cd6c7d917dfcd9588acbfb9a5410a03605b748676123e8d6214.png" />
@@ -1083,6 +1086,24 @@ memory usage: 4.8 KB
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="tugas4.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Decision Tree pada Data Iris</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="KNN_DataIris.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">KNN Classifier atau Klasifikasi pada Data Iris</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div></div>
   
 </div>
