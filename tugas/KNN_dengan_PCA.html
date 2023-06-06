@@ -160,6 +160,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="Tugas3.html">Klasifikasi Naive Bayes Pada Dataset Iris (Tugas 3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UTS_Pendata.html">UTS NAIVE BAYES DAN KNN DATASET HEART DISEASE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tugas4.html">Decision Tree pada Data Iris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="K_Mean.html">K-Means Clustering atau Pengelompokan pada Data Iris</a></li>
 <li class="toctree-l1"><a class="reference internal" href="KNN_DataIris.html">KNN Classifier atau Klasifikasi pada Data Iris</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Naive_Bayes_DataIris.html">Naive Bayes Klasifikasi Gaussian pada Data Iris</a></li>
 <li class="toctree-l1"><a class="reference internal" href="BNN.html">Jaringan Saraf Tiruan (Backpropagation Neural Network)</a></li>
@@ -210,6 +211,37 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/okiokib/pendata/blob/gh-pages/sources/tugas/KNN_dengan_PCA.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
 <div class="dropdown dropdown-source-buttons">
   <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
     <i class="fab fa-github"></i>
@@ -218,7 +250,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+      <li><a href="https://github.com/okiokib/pendata" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -235,7 +267,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ftugas/KNN_dengan_PCA.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/okiokib/pendata/issues/new?title=Issue%20on%20page%20%2Ftugas/KNN_dengan_PCA.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -409,7 +441,7 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-dd9b6ab2-62fa-44f2-b09f-809dec649d84">
+  <div id="df-7c8cd5fd-5170-4913-8068-827110bad12e">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -529,7 +561,7 @@ document.write(`
 </table>
 <p>150 rows × 5 columns</p>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-dd9b6ab2-62fa-44f2-b09f-809dec649d84')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-7c8cd5fd-5170-4913-8068-827110bad12e')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -580,12 +612,12 @@ document.write(`
 
       <script>
         const buttonEl =
-          document.querySelector('#df-dd9b6ab2-62fa-44f2-b09f-809dec649d84 button.colab-df-convert');
+          document.querySelector('#df-7c8cd5fd-5170-4913-8068-827110bad12e button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-dd9b6ab2-62fa-44f2-b09f-809dec649d84');
+          const element = document.querySelector('#df-7c8cd5fd-5170-4913-8068-827110bad12e');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -714,6 +746,13 @@ memory usage: 6.0+ KB
 <ol class="arabic simple" start="9">
 <li><p>Menyimpan data normalisasi</p></li>
 </ol>
+<ul class="simple">
+<li><p>knn_pca = KNeighborsClassifier(n_neighbors=3): Membuat objek dari kelas KNeighborsClassifier dengan parameter n_neighbors=3, yang berarti jumlah tetangga terdekat yang akan digunakan dalam proses klasifikasi.</p></li>
+<li><p>knn_pca.fit(X_train_new, y_train_new): Melatih model KNN dengan data latih yang telah diproses menggunakan PCA. X_train_new adalah matriks fitur dari data latih yang telah direduksi dimensinya dengan PCA, dan y_train_new adalah vektor target yang sesuai dengan data latih.</p></li>
+<li><p>y_prediksi_knn_pca = knn_pca.predict(X_test_new): Memprediksi kelas target untuk data uji yang telah diproses menggunakan PCA. X_test_new adalah matriks fitur dari data uji yang telah direduksi dimensinya dengan PCA.</p></li>
+<li><p>print(‘Accuracy: {:.2f}’.format(accuracy_score(y_test_new, y_prediksi_knn_pca))): Menghitung dan mencetak akurasi prediksi model KNN dengan PCA. accuracy_score adalah fungsi untuk menghitung akurasi berdasarkan perbandingan antara y_test_new (kelas target sebenarnya) dengan y_prediksi_knn_pca (kelas target yang diprediksi).</p></li>
+<li><p>Akurasi merupakan metrik evaluasi yang mengukur sejauh mana prediksi model cocok dengan data sebenarnya. Outputnya akan mencetak nilai akurasi dalam format desimal dengan dua angka di belakang koma.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menyimpan normalisasi ke file</span>
@@ -743,7 +782,7 @@ memory usage: 6.0+ KB
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-7a68cb7e-ceaf-42dd-8f04-474544197fa1">
+  <div id="df-127bdcf9-ad8d-4756-a8ab-f0f1bdf04b2e">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -863,7 +902,7 @@ memory usage: 6.0+ KB
 </table>
 <p>150 rows × 5 columns</p>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-7a68cb7e-ceaf-42dd-8f04-474544197fa1')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-127bdcf9-ad8d-4756-a8ab-f0f1bdf04b2e')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -914,12 +953,12 @@ memory usage: 6.0+ KB
 
       <script>
         const buttonEl =
-          document.querySelector('#df-7a68cb7e-ceaf-42dd-8f04-474544197fa1 button.colab-df-convert');
+          document.querySelector('#df-127bdcf9-ad8d-4756-a8ab-f0f1bdf04b2e button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-7a68cb7e-ceaf-42dd-8f04-474544197fa1');
+          const element = document.querySelector('#df-127bdcf9-ad8d-4756-a8ab-f0f1bdf04b2e');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -988,7 +1027,7 @@ memory usage: 6.0+ KB
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-18d78854-d6f1-4e4d-ba82-905c12f9607b">
+  <div id="df-994cdd4f-90f1-4cb2-a6ec-6ad04261afb4">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -1166,7 +1205,7 @@ memory usage: 6.0+ KB
   </tbody>
 </table>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-18d78854-d6f1-4e4d-ba82-905c12f9607b')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-994cdd4f-90f1-4cb2-a6ec-6ad04261afb4')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -1217,12 +1256,12 @@ memory usage: 6.0+ KB
 
       <script>
         const buttonEl =
-          document.querySelector('#df-18d78854-d6f1-4e4d-ba82-905c12f9607b button.colab-df-convert');
+          document.querySelector('#df-994cdd4f-90f1-4cb2-a6ec-6ad04261afb4 button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-18d78854-d6f1-4e4d-ba82-905c12f9607b');
+          const element = document.querySelector('#df-994cdd4f-90f1-4cb2-a6ec-6ad04261afb4');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -1381,7 +1420,7 @@ memory usage: 6.0+ KB
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-83d7ee54-da7b-4d50-bf59-1cd841f4dccd">
+  <div id="df-b6fade61-ed3e-4809-8d90-9d9fd05ac6b0">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -1559,7 +1598,7 @@ memory usage: 6.0+ KB
   </tbody>
 </table>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-83d7ee54-da7b-4d50-bf59-1cd841f4dccd')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-b6fade61-ed3e-4809-8d90-9d9fd05ac6b0')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -1610,12 +1649,12 @@ memory usage: 6.0+ KB
 
       <script>
         const buttonEl =
-          document.querySelector('#df-83d7ee54-da7b-4d50-bf59-1cd841f4dccd button.colab-df-convert');
+          document.querySelector('#df-b6fade61-ed3e-4809-8d90-9d9fd05ac6b0 button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-83d7ee54-da7b-4d50-bf59-1cd841f4dccd');
+          const element = document.querySelector('#df-b6fade61-ed3e-4809-8d90-9d9fd05ac6b0');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
