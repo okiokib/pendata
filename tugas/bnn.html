@@ -1,0 +1,1455 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>METODE BNN &#8212; Penambangan Data</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tugas/bnn';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="METODE DESICION TREE" href="DESICION_TREE.html" />
+    <link rel="prev" title="KNN dengan PCA" href="KNN_dengan_PCA.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/okii.jpg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/okii.jpg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Tugas Penambangan Data
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="tugass1.html">Mengambil data dari sumber yang berbeda dan menggabungkanya(Tugas 1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tugas2.html">Tugas Untuk menghitung jarak data(Tugas 2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas3.html">Klasifikasi Naive Bayes Pada Dataset Iris (Tugas 3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UTS_Pendata.html">UTS NAIVE BAYES DAN KNN DATASET HEART DISEASE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tugas4.html">Decision Tree pada Data Iris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="K_Mean.html">K-Means Clustering atau Pengelompokan pada Data Iris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="KNN_DataIris.html">KNN Classifier atau Klasifikasi pada Data Iris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Naive_Bayes_DataIris.html">Naive Bayes Klasifikasi Gaussian pada Data Iris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BNN.html">Jaringan Saraf Tiruan (Backpropagation Neural Network)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="KNN_dengan_PCA.html">KNN dengan PCA</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">METODE BNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DESICION_TREE.html">METODE DESICION TREE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="KNN.html">METODE KNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NAIVE_BAYES.html">METODE NAIVE BAYES</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preprosessing.html">PREPROSESSING DATA</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/okiokib/pendata/blob/gh-pages/sources/tugas/bnn.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/okiokib/pendata" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/okiokib/pendata/issues/new?title=Issue%20on%20page%20%2Ftugas/bnn.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/tugas/bnn.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>METODE BNN</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="tex2jax_ignore mathjax_ignore section" id="metode-bnn">
+<h1>METODE BNN<a class="headerlink" href="#metode-bnn" title="Permalink to this heading">#</a></h1>
+<p>Import Modul</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Mengimport dataset</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://gist.githubusercontent.com/okiokib/f2824f46e055c63b66d1a71c81459dd7/raw/33a9440e7d0d666d7ae3b6f6d0ede025d094482c/Crop_recommendation.csv&#39;</span><span class="p">)</span>
+
+<span class="n">jumlah_baris</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">jumlah_baris</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-8f0fe097-b778-43ac-9b16-2fdaf4dd1de1">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>N</th>
+      <th>P</th>
+      <th>K</th>
+      <th>temperature</th>
+      <th>humidity</th>
+      <th>ph</th>
+      <th>rainfall</th>
+      <th>label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>90</td>
+      <td>42</td>
+      <td>43</td>
+      <td>20.879744</td>
+      <td>82.002744</td>
+      <td>6.502985</td>
+      <td>202.935536</td>
+      <td>rice</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>85</td>
+      <td>58</td>
+      <td>41</td>
+      <td>21.770462</td>
+      <td>80.319644</td>
+      <td>7.038096</td>
+      <td>226.655537</td>
+      <td>rice</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>60</td>
+      <td>55</td>
+      <td>44</td>
+      <td>23.004459</td>
+      <td>82.320763</td>
+      <td>7.840207</td>
+      <td>263.964248</td>
+      <td>rice</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>74</td>
+      <td>35</td>
+      <td>40</td>
+      <td>26.491096</td>
+      <td>80.158363</td>
+      <td>6.980401</td>
+      <td>242.864034</td>
+      <td>rice</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>78</td>
+      <td>42</td>
+      <td>42</td>
+      <td>20.130175</td>
+      <td>81.604873</td>
+      <td>7.628473</td>
+      <td>262.717340</td>
+      <td>rice</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2195</th>
+      <td>107</td>
+      <td>34</td>
+      <td>32</td>
+      <td>26.774637</td>
+      <td>66.413269</td>
+      <td>6.780064</td>
+      <td>177.774507</td>
+      <td>coffee</td>
+    </tr>
+    <tr>
+      <th>2196</th>
+      <td>99</td>
+      <td>15</td>
+      <td>27</td>
+      <td>27.417112</td>
+      <td>56.636362</td>
+      <td>6.086922</td>
+      <td>127.924610</td>
+      <td>coffee</td>
+    </tr>
+    <tr>
+      <th>2197</th>
+      <td>118</td>
+      <td>33</td>
+      <td>30</td>
+      <td>24.131797</td>
+      <td>67.225123</td>
+      <td>6.362608</td>
+      <td>173.322839</td>
+      <td>coffee</td>
+    </tr>
+    <tr>
+      <th>2198</th>
+      <td>117</td>
+      <td>32</td>
+      <td>34</td>
+      <td>26.272418</td>
+      <td>52.127394</td>
+      <td>6.758793</td>
+      <td>127.175293</td>
+      <td>coffee</td>
+    </tr>
+    <tr>
+      <th>2199</th>
+      <td>104</td>
+      <td>18</td>
+      <td>30</td>
+      <td>23.603016</td>
+      <td>60.396475</td>
+      <td>6.779833</td>
+      <td>140.937041</td>
+      <td>coffee</td>
+    </tr>
+  </tbody>
+</table>
+<p>2200 rows × 8 columns</p>
+</div>
+      <button class="colab-df-convert" onclick="convertToInteractive('df-8f0fe097-b778-43ac-9b16-2fdaf4dd1de1')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
+        
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
+  </svg>
+      </button>
+      
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+      <script>
+        const buttonEl =
+          document.querySelector('#df-8f0fe097-b778-43ac-9b16-2fdaf4dd1de1 button.colab-df-convert');
+        buttonEl.style.display =
+          google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+        async function convertToInteractive(key) {
+          const element = document.querySelector('#df-8f0fe097-b778-43ac-9b16-2fdaf4dd1de1');
+          const dataTable =
+            await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                     [key], {});
+          if (!dataTable) return;
+
+          const docLinkHtml = 'Like what you see? Visit the ' +
+            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+            + ' to learn more about interactive tables.';
+          element.innerHTML = '';
+          dataTable['output_type'] = 'display_data';
+          await google.colab.output.renderOutput(dataTable, element);
+          const docLink = document.createElement('div');
+          docLink.innerHTML = docLinkHtml;
+          element.appendChild(docLink);
+        }
+      </script>
+    </div>
+  </div>
+  </div></div>
+</div>
+<p>Mengecek Label</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">class_counts</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">class_counts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>rice           100
+maize          100
+jute           100
+cotton         100
+coconut        100
+papaya         100
+orange         100
+apple          100
+muskmelon      100
+watermelon     100
+grapes         100
+mango          100
+banana         100
+pomegranate    100
+lentil         100
+blackgram      100
+mungbean       100
+mothbeans      100
+pigeonpeas     100
+kidneybeans    100
+chickpea       100
+coffee         100
+Name: label, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Menormalisasi Label ke Bahasa Indonesia</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;rice&#39;</span><span class="p">:</span> <span class="s1">&#39;Padi&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;maize&#39;</span><span class="p">:</span> <span class="s1">&#39;Jagung&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;jute&#39;</span><span class="p">:</span> <span class="s1">&#39;Rami&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;cotton&#39;</span><span class="p">:</span> <span class="s1">&#39;Kapas&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;coconut&#39;</span><span class="p">:</span> <span class="s1">&#39;Kelapa&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;papaya&#39;</span><span class="p">:</span> <span class="s1">&#39;Pepaya&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;orange&#39;</span><span class="p">:</span> <span class="s1">&#39;Jeruk&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;apple&#39;</span><span class="p">:</span> <span class="s1">&#39;Apel&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;muskmelon&#39;</span><span class="p">:</span> <span class="s1">&#39;Melon&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;watermelon&#39;</span><span class="p">:</span> <span class="s1">&#39;Semangka&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;grapes&#39;</span><span class="p">:</span> <span class="s1">&#39;Anggur&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;mango&#39;</span><span class="p">:</span> <span class="s1">&#39;Mangga&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;banana&#39;</span><span class="p">:</span> <span class="s1">&#39;Pisang&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;pomegranate&#39;</span><span class="p">:</span> <span class="s1">&#39;Buah Delima&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;lentil&#39;</span><span class="p">:</span> <span class="s1">&#39;Kacang Lentil&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;blackgram&#39;</span><span class="p">:</span> <span class="s1">&#39;Kacang Hitam&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;mungbean&#39;</span><span class="p">:</span> <span class="s1">&#39;Kacang Hijau&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;mothbeans&#39;</span><span class="p">:</span> <span class="s1">&#39;Kecipir&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;pigeonpeas&#39;</span><span class="p">:</span> <span class="s1">&#39;Kacang Kayu&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;kidneybeans&#39;</span><span class="p">:</span> <span class="s1">&#39;Kacang Merah&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;chickpea&#39;</span><span class="p">:</span> <span class="s1">&#39;Kacang Garbanzo&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;coffee&#39;</span><span class="p">:</span> <span class="s1">&#39;Kopi&#39;</span>
+                               <span class="p">})</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">jumlah_baris</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-0a31bee7-9c2c-44f8-9362-582c3e70f241">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>N</th>
+      <th>P</th>
+      <th>K</th>
+      <th>temperature</th>
+      <th>humidity</th>
+      <th>ph</th>
+      <th>rainfall</th>
+      <th>label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>90</td>
+      <td>42</td>
+      <td>43</td>
+      <td>20.879744</td>
+      <td>82.002744</td>
+      <td>6.502985</td>
+      <td>202.935536</td>
+      <td>Padi</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>85</td>
+      <td>58</td>
+      <td>41</td>
+      <td>21.770462</td>
+      <td>80.319644</td>
+      <td>7.038096</td>
+      <td>226.655537</td>
+      <td>Padi</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>60</td>
+      <td>55</td>
+      <td>44</td>
+      <td>23.004459</td>
+      <td>82.320763</td>
+      <td>7.840207</td>
+      <td>263.964248</td>
+      <td>Padi</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>74</td>
+      <td>35</td>
+      <td>40</td>
+      <td>26.491096</td>
+      <td>80.158363</td>
+      <td>6.980401</td>
+      <td>242.864034</td>
+      <td>Padi</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>78</td>
+      <td>42</td>
+      <td>42</td>
+      <td>20.130175</td>
+      <td>81.604873</td>
+      <td>7.628473</td>
+      <td>262.717340</td>
+      <td>Padi</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2195</th>
+      <td>107</td>
+      <td>34</td>
+      <td>32</td>
+      <td>26.774637</td>
+      <td>66.413269</td>
+      <td>6.780064</td>
+      <td>177.774507</td>
+      <td>Kopi</td>
+    </tr>
+    <tr>
+      <th>2196</th>
+      <td>99</td>
+      <td>15</td>
+      <td>27</td>
+      <td>27.417112</td>
+      <td>56.636362</td>
+      <td>6.086922</td>
+      <td>127.924610</td>
+      <td>Kopi</td>
+    </tr>
+    <tr>
+      <th>2197</th>
+      <td>118</td>
+      <td>33</td>
+      <td>30</td>
+      <td>24.131797</td>
+      <td>67.225123</td>
+      <td>6.362608</td>
+      <td>173.322839</td>
+      <td>Kopi</td>
+    </tr>
+    <tr>
+      <th>2198</th>
+      <td>117</td>
+      <td>32</td>
+      <td>34</td>
+      <td>26.272418</td>
+      <td>52.127394</td>
+      <td>6.758793</td>
+      <td>127.175293</td>
+      <td>Kopi</td>
+    </tr>
+    <tr>
+      <th>2199</th>
+      <td>104</td>
+      <td>18</td>
+      <td>30</td>
+      <td>23.603016</td>
+      <td>60.396475</td>
+      <td>6.779833</td>
+      <td>140.937041</td>
+      <td>Kopi</td>
+    </tr>
+  </tbody>
+</table>
+<p>2200 rows × 8 columns</p>
+</div>
+      <button class="colab-df-convert" onclick="convertToInteractive('df-0a31bee7-9c2c-44f8-9362-582c3e70f241')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
+        
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
+  </svg>
+      </button>
+      
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+      <script>
+        const buttonEl =
+          document.querySelector('#df-0a31bee7-9c2c-44f8-9362-582c3e70f241 button.colab-df-convert');
+        buttonEl.style.display =
+          google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+        async function convertToInteractive(key) {
+          const element = document.querySelector('#df-0a31bee7-9c2c-44f8-9362-582c3e70f241');
+          const dataTable =
+            await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                     [key], {});
+          if (!dataTable) return;
+
+          const docLinkHtml = 'Like what you see? Visit the ' +
+            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+            + ' to learn more about interactive tables.';
+          element.innerHTML = '';
+          dataTable['output_type'] = 'display_data';
+          await google.colab.output.renderOutput(dataTable, element);
+          const docLink = document.createElement('div');
+          docLink.innerHTML = docLinkHtml;
+          element.appendChild(docLink);
+        }
+      </script>
+    </div>
+  </div>
+  </div></div>
+</div>
+<p>Mengecek apakah ada data yang kosong</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>N              0
+P              0
+K              0
+temperature    0
+humidity       0
+ph             0
+rainfall       0
+label          0
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Mengecek Type Data</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 2200 entries, 0 to 2199
+Data columns (total 8 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   N            2200 non-null   int64  
+ 1   P            2200 non-null   int64  
+ 2   K            2200 non-null   int64  
+ 3   temperature  2200 non-null   float64
+ 4   humidity     2200 non-null   float64
+ 5   ph           2200 non-null   float64
+ 6   rainfall     2200 non-null   float64
+ 7   label        2200 non-null   object 
+dtypes: float64(4), int64(3), object(1)
+memory usage: 137.6+ KB
+</pre></div>
+</div>
+</div>
+</div>
+<p>Normalisasi Data</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">selected_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="s1">&#39;K&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;humidity&#39;</span><span class="p">,</span> <span class="s1">&#39;ph&#39;</span><span class="p">,</span> <span class="s1">&#39;rainfall&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">]</span>
+<span class="n">selected_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">selected_columns</span><span class="p">]</span>
+
+<span class="n">numeric_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="s1">&#39;K&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;humidity&#39;</span><span class="p">,</span> <span class="s1">&#39;ph&#39;</span><span class="p">,</span> <span class="s1">&#39;rainfall&#39;</span><span class="p">]</span>
+<span class="n">numeric_data</span> <span class="o">=</span> <span class="n">selected_data</span><span class="p">[</span><span class="n">numeric_columns</span><span class="p">]</span>
+
+<span class="n">minmax</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
+<span class="n">normalized_numeric</span> <span class="o">=</span> <span class="n">minmax</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">numeric_data</span><span class="p">)</span>
+
+<span class="n">label_encoder_result</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+<span class="n">encoded_result</span> <span class="o">=</span> <span class="n">label_encoder_result</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">selected_data</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Menyatukan data yang sudah dinormalisasi</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">normalized_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="n">normalized_numeric</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="s1">&#39;P&#39;</span><span class="p">:</span> <span class="n">normalized_numeric</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="s1">&#39;K&#39;</span><span class="p">:</span> <span class="n">normalized_numeric</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span>
+        <span class="s1">&#39;temperature&#39;</span><span class="p">:</span> <span class="n">normalized_numeric</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">],</span>
+        <span class="s1">&#39;humidity&#39;</span><span class="p">:</span> <span class="n">normalized_numeric</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">],</span>
+        <span class="s1">&#39;ph&#39;</span><span class="p">:</span> <span class="n">normalized_numeric</span><span class="p">[:,</span> <span class="mi">5</span><span class="p">],</span>
+        <span class="s1">&#39;rainfall&#39;</span><span class="p">:</span> <span class="n">normalized_numeric</span><span class="p">[:,</span> <span class="mi">6</span><span class="p">],</span>
+        <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">encoded_result</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Menampilkan Data Yang Sudah Dinormalisasi</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">normalized_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">jumlah_baris</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-dbbac74c-7d0b-4383-9921-edab328ab19c">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>N</th>
+      <th>P</th>
+      <th>K</th>
+      <th>temperature</th>
+      <th>humidity</th>
+      <th>ph</th>
+      <th>rainfall</th>
+      <th>label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.642857</td>
+      <td>0.264286</td>
+      <td>0.190</td>
+      <td>0.345886</td>
+      <td>0.790267</td>
+      <td>0.466264</td>
+      <td>0.656458</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.607143</td>
+      <td>0.378571</td>
+      <td>0.180</td>
+      <td>0.371445</td>
+      <td>0.770633</td>
+      <td>0.549480</td>
+      <td>0.741675</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.428571</td>
+      <td>0.357143</td>
+      <td>0.195</td>
+      <td>0.406854</td>
+      <td>0.793977</td>
+      <td>0.674219</td>
+      <td>0.875710</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.528571</td>
+      <td>0.214286</td>
+      <td>0.175</td>
+      <td>0.506901</td>
+      <td>0.768751</td>
+      <td>0.540508</td>
+      <td>0.799905</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.557143</td>
+      <td>0.264286</td>
+      <td>0.185</td>
+      <td>0.324378</td>
+      <td>0.785626</td>
+      <td>0.641291</td>
+      <td>0.871231</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2195</th>
+      <td>0.764286</td>
+      <td>0.207143</td>
+      <td>0.135</td>
+      <td>0.515037</td>
+      <td>0.608410</td>
+      <td>0.509353</td>
+      <td>0.566064</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>2196</th>
+      <td>0.707143</td>
+      <td>0.071429</td>
+      <td>0.110</td>
+      <td>0.533473</td>
+      <td>0.494359</td>
+      <td>0.401561</td>
+      <td>0.386972</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>2197</th>
+      <td>0.842857</td>
+      <td>0.200000</td>
+      <td>0.125</td>
+      <td>0.439202</td>
+      <td>0.617880</td>
+      <td>0.444433</td>
+      <td>0.550071</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>2198</th>
+      <td>0.835714</td>
+      <td>0.192857</td>
+      <td>0.145</td>
+      <td>0.500627</td>
+      <td>0.441760</td>
+      <td>0.506045</td>
+      <td>0.384280</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>2199</th>
+      <td>0.742857</td>
+      <td>0.092857</td>
+      <td>0.125</td>
+      <td>0.424029</td>
+      <td>0.538222</td>
+      <td>0.509317</td>
+      <td>0.433721</td>
+      <td>14</td>
+    </tr>
+  </tbody>
+</table>
+<p>2200 rows × 8 columns</p>
+</div>
+      <button class="colab-df-convert" onclick="convertToInteractive('df-dbbac74c-7d0b-4383-9921-edab328ab19c')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
+        
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
+  </svg>
+      </button>
+      
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+      <script>
+        const buttonEl =
+          document.querySelector('#df-dbbac74c-7d0b-4383-9921-edab328ab19c button.colab-df-convert');
+        buttonEl.style.display =
+          google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+        async function convertToInteractive(key) {
+          const element = document.querySelector('#df-dbbac74c-7d0b-4383-9921-edab328ab19c');
+          const dataTable =
+            await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                     [key], {});
+          if (!dataTable) return;
+
+          const docLinkHtml = 'Like what you see? Visit the ' +
+            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+            + ' to learn more about interactive tables.';
+          element.innerHTML = '';
+          dataTable['output_type'] = 'display_data';
+          await google.colab.output.renderOutput(dataTable, element);
+          const docLink = document.createElement('div');
+          docLink.innerHTML = docLinkHtml;
+          element.appendChild(docLink);
+        }
+      </script>
+    </div>
+  </div>
+  </div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Memisahkan fitur dan target</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">normalized_data</span><span class="p">[[</span><span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="s1">&#39;K&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;humidity&#39;</span><span class="p">,</span> <span class="s1">&#39;ph&#39;</span><span class="p">,</span> <span class="s1">&#39;rainfall&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">normalized_data</span><span class="p">[[</span><span class="s1">&#39;label&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Split data into train and test data</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>BNN</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="kn">import</span> <span class="n">MLPClassifier</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mlp_clf</span> <span class="o">=</span> <span class="n">MLPClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">50</span><span class="p">),</span>
+                        <span class="n">max_iter</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span> <span class="n">activation</span> <span class="o">=</span> <span class="s1">&#39;logistic&#39;</span><span class="p">,</span>
+                        <span class="n">solver</span> <span class="o">=</span> <span class="s1">&#39;adam&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">)</span>
+
+<span class="c1"># melakukan training pada model</span>
+<span class="n">mlp_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">y_pred_mlp</span> <span class="o">=</span> <span class="n">mlp_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="n">accuracy_bnn</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_mlp</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy BNN: </span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">accuracy_bnn</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.10/dist-packages/sklearn/neural_network/_multilayer_perceptron.py:1098: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
+  y = column_or_1d(y, warn=True)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy BNN: 0.89
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.10/dist-packages/sklearn/neural_network/_multilayer_perceptron.py:686: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (300) reached and the optimization hasn&#39;t converged yet.
+  warnings.warn(
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./tugas"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="KNN_dengan_PCA.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">KNN dengan PCA</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="DESICION_TREE.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">METODE DESICION TREE</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Oki Bagus Rahmat Prakoso
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
